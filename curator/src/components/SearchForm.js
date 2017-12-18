@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
+import Option from './Option'
 
 class SearchForm extends Component {
 
@@ -52,6 +53,10 @@ class SearchForm extends Component {
         );
     }
 
+    renderSelectControl(field) {
+        return <Option field={ field } />
+    }
+
     render() {
         return (
             <div className='form'>
@@ -60,8 +65,8 @@ class SearchForm extends Component {
                         <Field label="Merchant:"
                             name="merchant"
                             placeholder="比如:Neiman"
-                            className="col-md-3 form-group"
-                            component={this.renderInput} />
+                            className="col-md-6 form-group"
+                            component={this.renderSelectControl} />
                         <Field label="Brand:"
                             name="brand"
                             placeholder="比如:Coach"

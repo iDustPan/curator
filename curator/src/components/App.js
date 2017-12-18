@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import SearchForm from './SearchForm';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchMerchants } from '../actions/FetchMerchantsCreators';
+import { fetchMerchants } from '../actions/MerchantsCreators';
 
 class App extends Component {
     render() {

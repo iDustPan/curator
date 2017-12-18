@@ -18,7 +18,7 @@ ReactDom.render (
             <div>
                 <NavigationBar />
                 <Route exact path="/" component={App} />
-                <Route path="/hello" component={Hello} />
+                <Route path="/products" component={Hello} />
             </div>
         </Router>
     </Provider>,
