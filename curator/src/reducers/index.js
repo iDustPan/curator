@@ -1,11 +1,13 @@
 
 import { combineReducers } from 'redux';
-import { searchReducer } from './reducer_products_search';
+import { searchReducer } from './SearchProductsReducer';
 import { reducer as formReducer } from 'redux-form';
+import { merchants } from './FetchMerchantsReducer'
 
 const rootReducer = combineReducers({
     search: searchReducer,
-    form: formReducer
+    form: formReducer,
+    merchants: merchants
 });
 
 export default rootReducer;

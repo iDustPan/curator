@@ -4,7 +4,7 @@ import ReactDom from 'react-dom';
 import App from './components/App';
 import { Provider } from 'react-redux';
 import appStore from './store/index';
-import NavigationBar from './nav';
+import NavigationBar from './components/NavigationBar';
 import {
     BrowserRouter as Router,
     Route,
@@ -15,11 +15,11 @@ import Hello from './components/hello';
 ReactDom.render (
     <Provider store={appStore}>
         <Router>
-            <Switch>
+            <div>
                 <NavigationBar />
                 <Route exact path="/" component={App} />
                 <Route path="/hello" component={Hello} />
-            </Switch>
+            </div>
         </Router>
     </Provider>,
     document.getElementById('container')
