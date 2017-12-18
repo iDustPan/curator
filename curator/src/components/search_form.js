@@ -21,21 +21,18 @@ class SearchForm extends Component {
         return (
             <div className={ field.className } >
                 <label>{ field.label }</label>
-                <div>
-                    <input type="range"
-                        className="form-control"
+                <div className="form-inline">
+                    <input type="number"
+                        className="form-control col-md-3"
                         min="0"
                         max="9999"
-                        placeholder="minimalPrice"
+                        placeholder="from"
                     />
-                </div>
-                <div>
-                    Max:
-                    <input type="range"
-                        className="form-control"
+                    <input type="number"
+                        className="form-control col-md-3 mg_lf_sm"
                         min="0"
                         max="9999"
-                        placeholder="maximalPrice"
+                        placeholder="to"
                     />
                 </div>
             </div>
@@ -63,22 +60,22 @@ class SearchForm extends Component {
                         <Field label="Merchant:"
                             name="merchant"
                             placeholder="比如:Neiman"
-                            className="col-md-6 form-group"
+                            className="col-md-3 form-group"
                             component={this.renderInput} />
                         <Field label="Brand:"
                             name="brand"
                             placeholder="比如:Coach"
-                            className="col-md-6 form-group"
+                            className="col-md-3 form-group"
                             component={this.renderInput} />
                         <Field label="Product Name:"
                             name="productName"
                             placeholder="比如:HYDRA BEAUTY Micro Sérum"
-                            className="col-md-6 form-group"
+                            className="col-md-3 form-group"
                             component={this.renderInput} />
                         <Field label="Product IDs:"
                             name="productID"
                             placeholder="比如:6pm_8057539"
-                            className="col-md-6 form-group"
+                            className="col-md-3 form-group"
                             component={this.renderInput} />
                         <Field label="Label:"
                             name="label"
@@ -90,13 +87,17 @@ class SearchForm extends Component {
                             name="range"
                             className="col-md-6 form-group"
                             component={this.renderRangeControl} />
+                        <Field label="Bypass Cache"
+                            name="cache"
+                            className="form-check col-md-3 form-group from-inline"
+                            component={this.renderCheckControl} />
+                        <Field label="include sold out"
+                            name="soldout"
+                            className="form-check col-md-3 form-group from-inline"
+                            component={this.renderCheckControl} />
                     </div>
-                    <Field label="Bypass Cache"
-                        name="cache"
-                        className="form-check col-md-6 form-group"
-                        component={this.renderCheckControl} />
 
-                    <button type="submit" className="btn btn-primary">Submit</button>
+                    <button type="submit" className="btn btn-primary mt-2">Submit</button>
                 </form>
             </div>
         );
