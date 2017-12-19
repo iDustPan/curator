@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 import rootReducer from '../reducers';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Select from 'react-select';
-import { selectMerchant } from '../actions/MerchantsCreators'
+import Select, { Async } from 'react-select';
+import { selectMerchant, fetchMerchants } from '../actions/MerchantsCreators'
 
 class Option extends Component {
 
@@ -13,9 +13,12 @@ class Option extends Component {
 		this.onSelectMerchant = this.onSelectMerchant.bind(this);
 	}
 
+    componentDidMount() {
+        this.props.fetchMerchants();
+    }
+
 	renderOptions() {
-		console.log(`merchants = ${this.props.merchants}`);
-		this.props.merchants.map((merchant) => {
+		return this.props.merchants.map((merchant) => {
 			return { value: merchant.id, label: merchant.name };
 		});
 	}
@@ -28,23 +31,23 @@ class Option extends Component {
 		if (this.props.merchants.length == 0) {
 			return <div>loading...</div>;
 		}
-		const merchantsName = this.renderOptions();
-		console.log(`merchantsName = ${merchantsName}`);
+		const options = this.renderOptions();
 		return (
-			<Select
-				// className={this.props.field.className}
-				name='merchant_select'
-				value={ this.props.selectedMerchant }
-				onChange={ this.onSelectMerchant }
-				searchable={ true }
-				options={merchantsName}
-			/>
+            <div className={this.props.field.className}>
+                <label>{ this.props.field.label }</label>
+                <Select
+                    multi
+    				value={ this.props.selectedMerchant }
+    				onChange={ this.onSelectMerchant }
+    				searchable={ true }
+                    placeholder="Select your merchant"
+    				options={ options }/>
+            </div>
 	   );
 	}
 }
 
 const mapStateToProps = (state) => {
-	console.log(`the state is ${state.merchants}`);
 	return {
 		 merchants: state.merchants.merchantList,
 		 selectedMerchant: state.merchants.selectMerchant
@@ -52,7 +55,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-	return bindActionCreators({ selectMerchant }, dispatch);
+	return bindActionCreators({ selectMerchant, fetchMerchants }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Option);

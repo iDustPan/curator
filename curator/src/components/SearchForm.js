@@ -65,7 +65,7 @@ class SearchForm extends Component {
                         <Field label="Merchant:"
                             name="merchant"
                             placeholder="比如:Neiman"
-                            className="col-md-6 form-group"
+                            className="col-md-3 form-group"
                             component={this.renderSelectControl} />
                         <Field label="Brand:"
                             name="brand"
