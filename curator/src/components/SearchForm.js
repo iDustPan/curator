@@ -6,7 +6,15 @@ import MerchantsSelector from '../containers/MerchantsContainer';
 
 class SearchForm extends Component {
 
+    constructor(props) {
+        super(props);
+
+        this.onSubmit = this.onSubmit.bind(this);
+    }
+
     renderInput(field) {
+        const { meta: { touched, error } } = field;
+        // const className = `form-group ${touched && error ? 'has-danger' : ''}`
         return (
             <div className={field.className}>
                 <label>{ field.label }</label>
@@ -14,6 +22,9 @@ class SearchForm extends Component {
                     className='form-control'
                     placeholder={ field.placeholder }
                     { ...field.input } />
+                <div className="text-help">
+                    {/* {touched ? error : ''} */}
+                </div>
             </div>
         );
     }
@@ -57,10 +68,17 @@ class SearchForm extends Component {
         return <MerchantsSelector field={ field } />
     }
 
+    onSubmit(values) {
+        console.log(values);
+    }
+
     render() {
+
+        const { handleSubmit } = this.props;
+
         return (
             <div className='form'>
-                <form>
+                <form onSubmit={handleSubmit(this.onSubmit)}>
                     <div className="form-row">
                         <Field label="Merchant:"
                             name="merchant"
@@ -109,6 +127,18 @@ class SearchForm extends Component {
     }
 }
 
+
+function validate(values) {
+    // values containe all input field
+    console.log(values);
+    const errors = {};
+
+    // If errors is empty, the form is fine to submit
+    // If errors has any properties, redux from assumes form is invalid
+    return errors;
+}
+
 export default reduxForm({
+    validate,
     form: 'searchForm'
 })(SearchForm);
