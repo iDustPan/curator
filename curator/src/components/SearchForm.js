@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
-import Option from './Option'
+import MerchantsSelector from '../containers/MerchantsContainer';
 
 class SearchForm extends Component {
 
@@ -54,7 +54,7 @@ class SearchForm extends Component {
     }
 
     renderSelectControl(field) {
-        return <Option field={ field } />
+        return <MerchantsSelector field={ field } />
     }
 
     render() {
