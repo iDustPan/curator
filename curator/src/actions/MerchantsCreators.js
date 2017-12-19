@@ -13,9 +13,9 @@ export const fetchMerchants = () => {
 	};
 }
 
-export const selectMerchant = (merchant) => {
+export const selectMerchant = (selectMerchants) => {
 	return {
 		type: SELECT_MERCHANT,
-		payload: merchant
+		payload: selectMerchants
 	};
 }

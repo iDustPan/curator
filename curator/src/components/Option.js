@@ -4,7 +4,7 @@ import rootReducer from '../reducers';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Select, { Async } from 'react-select';
-import { selectMerchant, fetchMerchants } from '../actions/MerchantsCreators'
+import { selectMerchant } from '../actions/MerchantsCreators'
 
 class Option extends Component {
 
@@ -12,10 +12,6 @@ class Option extends Component {
 		super(props);
 		this.onSelectMerchant = this.onSelectMerchant.bind(this);
 	}
-
-    componentDidMount() {
-        this.props.fetchMerchants();
-    }
 
 	renderOptions() {
 		return this.props.merchants.map((merchant) => {
@@ -28,16 +24,18 @@ class Option extends Component {
 	}
 
 	render() {
-		if (this.props.merchants.length == 0) {
-			return <div>loading...</div>;
+        const options = this.renderOptions();
+        const selectedMerchants = this.props.selectedMerchants;
+
+		if (options.length == 0) {
+			return <div>merchants loading...</div>;
 		}
-		const options = this.renderOptions();
 		return (
             <div className={this.props.field.className}>
                 <label>{ this.props.field.label }</label>
                 <Select
                     multi
-    				value={ this.props.selectedMerchant }
+    				value={ selectedMerchants }
     				onChange={ this.onSelectMerchant }
     				searchable={ true }
                     placeholder="Select your merchant"
@@ -50,12 +48,12 @@ class Option extends Component {
 const mapStateToProps = (state) => {
 	return {
 		 merchants: state.merchants.merchantList,
-		 selectedMerchant: state.merchants.selectMerchant
+		 selectedMerchants: state.merchants.selectMerchant
 	 };
 }
 
 const mapDispatchToProps = (dispatch) => {
-	return bindActionCreators({ selectMerchant, fetchMerchants }, dispatch);
+	return bindActionCreators({ selectMerchant }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Option);

@@ -6,7 +6,7 @@ import {
 
 export const MerchantsReducer = (state = {
 	merchantList: [],
-	selectMerchant: {}
+	selectMerchant: []
 }, action) => {
 	switch (action.type) {
 		case FETCH_ALL_MERCHANTS:
