@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import MerchantsSelector from '../containers/MerchantsContainer';
+import BrandsSelector from '../containers/BrandsContainer';
 
 class SearchForm extends Component {
 
@@ -53,8 +54,12 @@ class SearchForm extends Component {
         );
     }
 
-    renderSelectControl(field) {
+    renderMerchantControl(field) {
         return <MerchantsSelector field={ field } />
+    }
+
+    renderBrandControl(field) {
+        return <BrandsSelector field={ field } />
     }
 
     render() {
@@ -66,12 +71,12 @@ class SearchForm extends Component {
                             name="merchant"
                             placeholder="比如:Neiman"
                             className="col-md-3 form-group"
-                            component={this.renderSelectControl} />
+                            component={this.renderMerchantControl} />
                         <Field label="Brand:"
                             name="brand"
                             placeholder="比如:Coach"
                             className="col-md-3 form-group"
-                            component={this.renderInput} />
+                            component={this.renderBrandControl} />
                         <Field label="Product Name:"
                             name="productName"
                             placeholder="比如:HYDRA BEAUTY Micro Sérum"
