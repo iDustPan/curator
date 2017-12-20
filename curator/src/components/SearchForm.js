@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import MerchantsSelector from '../containers/MerchantsContainer';
 import BrandsSelector from '../containers/BrandsContainer';
+import { searchProducts } from '../actions/SearchProductsCreators';
+import { connect } from 'react-redux';
 
 class SearchForm extends Component {
 
@@ -133,7 +135,7 @@ class SearchForm extends Component {
     }
 
     onSubmit(values) {
-        console.log(values);
+        this.props.searchProducts();
     }
 }
 
@@ -154,4 +156,6 @@ function validate(values) {
 export default reduxForm({
     validate,
     form: 'searchForm'
-})(SearchForm);
+})(
+    connect(null, { searchProducts })(SearchForm)
+);

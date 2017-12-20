@@ -1,9 +1,31 @@
 
-.form {
+#container {
+    max-width: 80%;
+    margin: auto;
+}
 
+.gray-back {
+    background-color: #f7f7f7;
+}
+
+.form {
     margin: 24px;
 }
 
 .mg_lf_sm {
     margin-left: 12px;
+}
+
+.product-list {
+    margin: auto;
+    justify-content: center;
+}
+
+.product-item {
+    margin: 12px;
+}
+
+.product-img {
+    padding: 12px;
+    border-bottom: 1px solid #dcdcdc;
 }
