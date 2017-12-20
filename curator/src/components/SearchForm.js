@@ -31,22 +31,18 @@ class SearchForm extends Component {
     }
 
     renderRangeControl(field) {
+        const { meta: { touched, error } } = field;
+        // const className = `form-group ${touched && error ? 'has-danger' : ''}`
         return (
-            <div className={ field.className } >
-                <label>{ field.label }</label>
-                <div className="form-inline">
-                    <input type="number"
-                        className="form-control col-md-3"
-                        min="0"
-                        max="9999"
-                        placeholder="from"
-                    />
-                    <input type="number"
-                        className="form-control col-md-3 mg_lf_sm"
-                        min="0"
-                        max="9999"
-                        placeholder="to"
-                    />
+            <div>
+                <input type="number"
+                    min="0"
+                    max="9999"
+                    className="form-control"
+                    {...field.input}
+                />
+                <div className="text-help">
+                    {touched ? error : ''}
                 </div>
             </div>
         );
@@ -66,21 +62,15 @@ class SearchForm extends Component {
     }
 
     renderMerchantControl(field) {
-        return <MerchantsSelector field={ field } />
+        return <MerchantsSelector field={ field } {...field.input}/>
     }
 
     renderBrandControl(field) {
-        return <BrandsSelector field={ field } />
-    }
-
-    onSubmit(values) {
-        console.log(values);
+        return <BrandsSelector field={ field } {...field.input}/>
     }
 
     render() {
-
         const { handleSubmit } = this.props;
-
         return (
             <div className='form'>
                 <form onSubmit={handleSubmit(this.onSubmit)}>
@@ -111,24 +101,39 @@ class SearchForm extends Component {
                             className="col-md-6 form-group"
                             component={this.renderInput} />
 
-                        <Field label="Price Range(USD):"
-                            name="range"
-                            className="col-md-6 form-group"
-                            component={this.renderRangeControl} />
-                        <Field label="Bypass Cache"
-                            name="cache"
-                            className="form-check col-md-3 form-group from-inline"
-                            component={this.renderCheckControl} />
-                        <Field label="include sold out"
-                            name="soldout"
-                            className="form-check col-md-3 form-group from-inline"
-                            component={this.renderCheckControl} />
+                        <div className="form-group col-md-3">
+                            <label>Price Range(USD):</label>
+                            <div className="form-inline">
+                                <Field
+                                    name="lowRange"
+                                    component={this.renderRangeControl} />
+                                <Field
+                                    name="highRange"
+                                    component={this.renderRangeControl} />
+                            </div>
+
+                        </div>
+                        <div className="from-inline col-md-3 form-group">
+                            <Field label="Bypass Cache"
+                                name="cache"
+                                className="form-check"
+                                component={this.renderCheckControl} />
+                            <Field label="include sold out"
+                                name="soldout"
+                                className="form-check"
+                                component={this.renderCheckControl} />
+                        </div>
+
                     </div>
 
                     <button type="submit" className="btn btn-primary mt-2">Submit</button>
                 </form>
             </div>
         );
+    }
+
+    onSubmit(values) {
+        console.log(values);
     }
 }
 
@@ -138,6 +143,9 @@ function validate(values) {
     console.log(values);
     const errors = {};
 
+    if (parseInt(values.lowRange) > parseInt(values.highRange)) {
+        errors.highRange = `the 'highRange' must higher than the 'lowRange'`
+    }
     // If errors is empty, the form is fine to submit
     // If errors has any properties, redux from assumes form is invalid
     return errors;
