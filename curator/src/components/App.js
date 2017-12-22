@@ -5,7 +5,6 @@ import { bindActionCreators } from 'redux';
 import { fetchMerchants } from '../actions/MerchantsCreators';
 import { fetchBrands } from '../actions/BrandsCreators';
 import ProductsList from '../containers/ProductsList';
-import Pagination from './Pagination';
 
 class App extends Component {
     render() {
@@ -13,7 +12,6 @@ class App extends Component {
             <div className='gray-back'>
                 <SearchForm />
                 <ProductsList />
-                <Pagination itemsCount={4} />
             </div>
         );
     }

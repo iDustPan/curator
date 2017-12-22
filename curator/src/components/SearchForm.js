@@ -124,9 +124,7 @@ class SearchForm extends Component {
                                 className="form-check"
                                 component={this.renderCheckControl} />
                         </div>
-
                     </div>
-
                     <button type="submit" className="btn btn-primary mt-2">Submit</button>
                 </form>
             </div>
@@ -135,8 +133,8 @@ class SearchForm extends Component {
 
     onSubmit(values) {
         const { selectedMerchants, selectedBrands } = this.props;
-        this.props.prepareSearch({ values, selectedMerchants, selectedBrands, index:1 });
-        this.props.searchProducts(values, { selectedMerchants, selectedBrands }, 1);
+        this.props.prepareSearch({ values, selectedMerchants, selectedBrands, index:0 });
+        this.props.searchProducts({ values, selectedMerchants, selectedBrands, index:0 });
     }
 }
 

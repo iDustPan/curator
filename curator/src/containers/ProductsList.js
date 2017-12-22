@@ -1,43 +1,60 @@
 import React, {Component} from 'react';
-import {searchReducer} from '../reducers/SearchProductsReducer';
-import {connect} from 'react-redux';
+import { searchReducer } from '../reducers/SearchProductsReducer';
+import { connect } from 'react-redux';
+import ProductItem from './ProductItem';
+import Loading from '../components/Loading';
+import InfiniteScroll from 'react-infinite-scroller';
+
+import { searchProducts, prepareSearch } from '../actions/SearchProductsCreators';
 
 class ProductsList extends Component {
 
-	renderProductItem(products) {
-		return products.map((product, index) => {
-			const imgUrl = product.images[0].full.url;
-			const productName = product.nameCN;
-			const productId = product.id;
+	constructor(props) {
+		super(props);
+		this.loadingMore = this.loadingMore.bind(this);
+	}
 
-			return (
-				<div key={product.id} className='card border-gray col-md-3 product-item'>
-					<img className="card-img-top product-img" src={imgUrl} alt="Card image cap"/>
-					<div className="card-body">
-						<h5 className="card-title">{productName}</h5>
-						<p className="card-text">{`Product ID:${productId}`}</p>
-					</div>
-				</div>
-			);
+	componentDidMount() {
+
+	}
+
+	renderProductItem(products) {
+		console.log(products);
+		return products.map((product, index) => {
+			return (<ProductItem product={product} key={index} />);
 		});
+	}
+
+	loadingMore(page) {
+		const searchParams = this.props.searchResult.previousSearch;
+		searchParams.index = page-1;
+		this.props.searchProducts(searchParams);
 	}
 
 	render() {
 		const { searchResult } = this.props;
-        console.log(searchResult);
-		if (!searchResult) {
-			return <div>Loading...</div>;
-		}
+		// if (!searchResult.products.length) {
+		// 	return (<Loading />);
+		// }
+		const hasMore = searchResult.hasMore;
+		const productItems = this.renderProductItem(searchResult.products);
 		return (
-			<div className='row product-list'>
-				{this.renderProductItem(searchResult.products)}
-			</div>
+			<InfiniteScroll
+                pageStart={0}
+                loadMore={this.loadingMore}
+                hasMore={hasMore}
+                loader={<Loading />}>
+
+                <div className="row product-list">
+                    { productItems }
+                </div>
+            </InfiniteScroll>
 		);
 	}
 }
 
 function mapStateToProps(state) {
-	return {searchResult: state.search.result};
+	return { searchResult: state.search };
 }
 
-export default connect(mapStateToProps)(ProductsList);
+export default connect(mapStateToProps, { searchProducts, prepareSearch })(ProductsList);
