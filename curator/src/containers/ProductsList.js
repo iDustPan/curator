@@ -23,8 +23,9 @@ class ProductsList extends Component {
 	}
 
 	render() {
-		const {searchResult} = this.props;
-		if (!searchResult.total) {
+		const { searchResult } = this.props;
+        console.log(searchResult);
+		if (!searchResult) {
 			return <div>Loading...</div>;
 		}
 		return (
@@ -36,7 +37,7 @@ class ProductsList extends Component {
 }
 
 function mapStateToProps(state) {
-	return {searchResult: state.search};
+	return {searchResult: state.search.result};
 }
 
 export default connect(mapStateToProps)(ProductsList);

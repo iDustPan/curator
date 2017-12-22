@@ -2,16 +2,16 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
+import { bindActionCreators } from 'redux';
 import MerchantsSelector from '../containers/MerchantsContainer';
 import BrandsSelector from '../containers/BrandsContainer';
-import { searchProducts } from '../actions/SearchProductsCreators';
+import { searchProducts, prepareSearch } from '../actions/SearchProductsCreators';
 import { connect } from 'react-redux';
 
 class SearchForm extends Component {
 
     constructor(props) {
         super(props);
-
         this.onSubmit = this.onSubmit.bind(this);
     }
 
@@ -113,7 +113,6 @@ class SearchForm extends Component {
                                     name="highRange"
                                     component={this.renderRangeControl} />
                             </div>
-
                         </div>
                         <div className="from-inline col-md-3 form-group">
                             <Field label="Bypass Cache"
@@ -135,7 +134,9 @@ class SearchForm extends Component {
     }
 
     onSubmit(values) {
-        this.props.searchProducts();
+        const { selectedMerchants, selectedBrands } = this.props;
+        this.props.prepareSearch({ values, selectedMerchants, selectedBrands, index:1 });
+        this.props.searchProducts(values, { selectedMerchants, selectedBrands }, 1);
     }
 }
 
@@ -153,9 +154,20 @@ function validate(values) {
     return errors;
 }
 
+function mapStateToProps(state) {
+    return {
+        selectedMerchants: state.merchants.selectMerchant,
+        selectedBrands: state.brands.selectBrand,
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators( { searchProducts, prepareSearch }, dispatch);
+}
+
 export default reduxForm({
     validate,
     form: 'searchForm'
 })(
-    connect(null, { searchProducts })(SearchForm)
+    connect(mapStateToProps, mapDispatchToProps)(SearchForm)
 );
