@@ -28,4 +28,6 @@
 .product-img {
     padding: 12px;
     border-bottom: 1px solid #dcdcdc;
+    height: 350px;
+    object-fit: contain;
 }

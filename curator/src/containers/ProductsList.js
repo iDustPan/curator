@@ -21,7 +21,9 @@ class ProductsList extends Component {
 	renderProductItem(products) {
 		console.log(products);
 		return products.map((product, index) => {
-			return (<ProductItem product={product} key={index} />);
+			return (
+				<ProductItem product={product} 	key={index} />
+			);
 		});
 	}
 
