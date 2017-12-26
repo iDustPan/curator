@@ -1,8 +1,5 @@
 
-import axios from 'axios';
-import { ROOT_URL } from '../API';
-
-const url = `${ROOT_URL}/api/v1/merchants?_all=true`;
+import fetcher from '../API';
 
 export const FETCH_ALL_MERCHANTS = 'FETCH_ALL_MERCHANTS';
 export const SELECT_MERCHANT = 'SELECT_MERCHANT';
@@ -10,7 +7,7 @@ export const SELECT_MERCHANT = 'SELECT_MERCHANT';
 export const fetchMerchants = () => {
 	return {
 		type: FETCH_ALL_MERCHANTS,
-		payload: axios.get(url)
+		payload: fetcher.get('api/v1/merchants', '_all=true')
 	};
 }
 

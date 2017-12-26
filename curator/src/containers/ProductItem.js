@@ -6,10 +6,11 @@ const ProductItem = ({ product }) => {
 	const imgUrl = product.images[0].full.url;
 	const productName = product.nameCN;
 	const productId = product.id;
+	const linkPath = `/products/${productId}`;
 
 	return (
 		<div className='card border-gray col-md-3 product-item'>
-			<Link to="/products/saksfifthavenue_845524446255199">
+			<Link to={linkPath}>
 				<img className="card-img-top product-img" src={imgUrl} alt="Card image cap"/>
 			</Link>
 			<div className="card-body">

@@ -1,7 +1,5 @@
-import axios from 'axios';
-import { ROOT_URL } from '../API';
 
-const url = `${ROOT_URL}/api/v1/brands?f=0&t=1000`;
+import fetcher from '../API';
 
 export const FETCH_ALL_BRANDS = 'FETCH_ALL_BRANDS';
 export const SELECT_BRAND = 'SELECT_BRAND';
@@ -9,7 +7,10 @@ export const SELECT_BRAND = 'SELECT_BRAND';
 export const fetchBrands = () => {
 	return {
 		type: FETCH_ALL_BRANDS,
-		payload: axios.get(url)
+		payload: fetcher.get('api/v1/brands', {
+			f: 0,
+			t: 1000
+		})
 	};
 }
 
