@@ -1,7 +1,8 @@
 
 import axios from 'axios';
+import { ROOT_URL } from '../API';
 
-const ROOT_URL = `https://5thave-prod.bybieyang.com/api/v2/discover`;
+const discoverAPI = `${ROOT_URL}/api/v2/discover`;
 const PAGE_SIZE = 20;
 
 export const PREPARE_SEARCH = "PREPARE_SEARCH";
@@ -55,7 +56,7 @@ function searchBy(searchParams) {
     // Search count
     param += `&f=${index * PAGE_SIZE}&t=${ (index + 1) * PAGE_SIZE }`;
 
-    const url = `${ROOT_URL}?${param}`
+    const url = `${discoverAPI}?${param}`
 
     console.log(url);
 

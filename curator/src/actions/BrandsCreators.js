@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { ROOT_URL } from '../API';
 
-const url = 'https://5thave-prod.bybieyang.com/api/v1/brands?f=0&t=1000';
+const url = `${ROOT_URL}/api/v1/brands?f=0&t=1000`;
 
 export const FETCH_ALL_BRANDS = 'FETCH_ALL_BRANDS';
 export const SELECT_BRAND = 'SELECT_BRAND';
