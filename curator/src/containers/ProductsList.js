@@ -1,11 +1,9 @@
-import React, {Component} from 'react';
-import { searchReducer } from '../reducers/SearchProductsReducer';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ProductItem from './ProductItem';
 import Loading from '../components/Loading';
 import InfiniteScroll from 'react-infinite-scroller';
-
-import { searchProducts, prepareSearch } from '../actions/SearchProductsCreators';
+import { searchProducts, prepareSearch } from '../actions/ProductsCreators';
 
 class ProductsList extends Component {
 
@@ -19,11 +17,12 @@ class ProductsList extends Component {
 	}
 
 	renderProductItem(products) {
-		return products.map((product, index) => {
-			return (
-				<ProductItem product={product} 	key={index} />
-			);
-		});
+        return _.map(products, (product) => {
+            console.log(product);
+            return (
+                <ProductItem product={product} 	key={product.id} />
+            );
+        });
 	}
 
 	loadingMore(page) {
@@ -41,21 +40,22 @@ class ProductsList extends Component {
 		const productItems = this.renderProductItem(searchResult.products);
 		return (
 			<InfiniteScroll
-        pageStart={0}
-        loadMore={this.loadingMore}
-        hasMore={hasMore}
-        loader={<Loading />}>
+                className='mx-auto'
+                pageStart={0}
+                loadMore={this.loadingMore}
+                hasMore={hasMore}
+                loader={<Loading />}>
 
-        <div className="row product-list mx-auto">
-          { productItems }
-        </div>
-      </InfiniteScroll>
+                <div className="row product-list mx-auto">
+                    { productItems }
+                </div>
+            </InfiniteScroll>
 		);
 	}
 }
 
 function mapStateToProps(state) {
-	return { searchResult: state.search };
+	return { searchResult: state.products };
 }
 
 export default connect(mapStateToProps, { searchProducts, prepareSearch })(ProductsList);

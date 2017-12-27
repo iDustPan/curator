@@ -5,7 +5,7 @@ import { Field, reduxForm } from 'redux-form';
 import { bindActionCreators } from 'redux';
 import MerchantsSelector from '../containers/MerchantsContainer';
 import BrandsSelector from '../containers/BrandsContainer';
-import { searchProducts, prepareSearch } from '../actions/SearchProductsCreators';
+import { searchProducts, prepareSearch } from '../actions/ProductsCreators';
 import { connect } from 'react-redux';
 
 class SearchForm extends Component {

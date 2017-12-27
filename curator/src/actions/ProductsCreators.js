@@ -5,6 +5,7 @@ const PAGE_SIZE = 20;
 
 export const PREPARE_SEARCH = "PREPARE_SEARCH";
 export const SEARCH_PRODUCTS = "SEARCH_PRODUCTS";
+export const FETCH_PRODUCT_DETAIL = 'fetch_product_detail';
 
 export const searchProducts = (searchParams) => {
 	return {
@@ -18,6 +19,13 @@ export const prepareSearch = (searchParams) => {
         type: PREPARE_SEARCH,
         payload: searchParams
     };
+}
+
+export const fetchProduct = (productId) => {
+	return {
+		type: FETCH_PRODUCT_DETAIL,
+		payload: fetcher.get(`api/v1/products/${productId}`)
+	};
 }
 
 function searchBy(searchParams) {

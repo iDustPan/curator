@@ -1,7 +1,6 @@
-
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { fetchProduct, clearProduct } from '../actions/productDetailCreators';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {fetchProduct} from '../actions/ProductsCreators';
 import Loading from '../components/Loading';
 import ProductName from './productName';
 import BannerSlider from '../components/Slider';
@@ -14,36 +13,20 @@ class ProductDetail extends Component {
 		this.props.fetchProduct(id);
 	}
 
-  componentWillUnmount() {
-    const { product, match } = this.props;
-    this.props.clearProduct(product);
-  }
-
 	render() {
-		const { product, match } = this.props;
-    const { id } = match.params;
-
-		if (product == {} ) {
-			return <Loading />;
-		}
-    console.log('----------------');
-    console.log(product);
-    const images = product.images;
-    console.log(images);
-		return (
-			<div className='prd_detail_container'>
-        <BannerSlider images={images} className='col-md-8 mx-auto'/>
-        <ProductName product={product} className='pt-2' />
-			</div>
-		);
+		const { product } = this.props;
+		const images = product.images;
+		return (<div className='prd_detail_container'>
+			<BannerSlider images={images} className='col-md-8 mx-auto'/>
+			<ProductName product={product} className='pt-2'/>
+		</div>);
 	};
 }
 
-function mapStateToProps(state) {
-
+function mapStateToProps(state, ownProps) {
 	return {
-     product: state.product
-   };
+        product: state.products.products[ownProps.match.params.id]
+    };
 }
 
-export default connect(mapStateToProps, { fetchProduct, clearProduct })(ProductDetail);
+export default connect(mapStateToProps, {fetchProduct})(ProductDetail);

@@ -1,6 +1,6 @@
 
 #container {
-    max-width: 80%;
+    max-width: 100%;
     margin: auto;
     background-color: #f7f7f7;
 }
@@ -19,7 +19,7 @@
 
 .product-list {
     margin: auto;
-    justify-content: center;
+    justify-content: start;
 }
 
 .product-item {

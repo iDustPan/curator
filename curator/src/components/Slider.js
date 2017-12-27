@@ -16,10 +16,18 @@ const BannerSlider = ({ images }) => {
     }
 
     const imgs = images.map((img, idx) => {
-      const imgUrl = img.thumbnail.url && img.full.url;
+        const thumbnail = img.thumbnail ? img.thumbnail : img.full;
+        const { url, width, height, format } = thumbnail;
+
+        let media;
+        if (format === 'mp4') {
+            media = <video src={url} autoPlay controls></video>
+        }else{
+            media = <img className='slider-img' src={url} alt='thumbnail'/>
+        }
       return (
         <div key={idx}>
-          <img className='slider-img' src={img.thumbnail.url} alt=""/>
+            {media}
         </div>
       );
     })
