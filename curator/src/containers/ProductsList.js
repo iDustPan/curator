@@ -19,7 +19,6 @@ class ProductsList extends Component {
 	}
 
 	renderProductItem(products) {
-		console.log(products);
 		return products.map((product, index) => {
 			return (
 				<ProductItem product={product} 	key={index} />
@@ -42,15 +41,15 @@ class ProductsList extends Component {
 		const productItems = this.renderProductItem(searchResult.products);
 		return (
 			<InfiniteScroll
-                pageStart={0}
-                loadMore={this.loadingMore}
-                hasMore={hasMore}
-                loader={<Loading />}>
+        pageStart={0}
+        loadMore={this.loadingMore}
+        hasMore={hasMore}
+        loader={<Loading />}>
 
-                <div className="row product-list">
-                    { productItems }
-                </div>
-            </InfiniteScroll>
+        <div className="row product-list mx-auto">
+          { productItems }
+        </div>
+      </InfiniteScroll>
 		);
 	}
 }

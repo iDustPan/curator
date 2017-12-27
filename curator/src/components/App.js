@@ -10,8 +10,8 @@ class App extends Component {
     render() {
         return (
             <div className='gray-back'>
-                <SearchForm />
-                <ProductsList />
+              <SearchForm />
+              <ProductsList />
             </div>
         );
     }

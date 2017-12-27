@@ -1,7 +1,7 @@
 
 import axios from 'axios';
 
-const ROOT_URL = 'https://5thave-prod.bybieyang.com'
+const ROOT_URL = 'https://5thave-dev.bybieyang.com'
 
 class Fetcher {
 

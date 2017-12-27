@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 const ProductName = ({product}) => {
 	return (
-		<div>
+		<div className='mt-5'>
 			<div>
 				{product.nameCN}
 			</div>
