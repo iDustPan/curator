@@ -1,33 +1,59 @@
-
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 
 class NavigationBar extends Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			selectTab: 'Curation Portal'
+		}
+	}
+
+	onClickAction(currentTab) {
+		this.setState({selectTab: currentTab});
+	}
+
 	render() {
-		return (
-				<nav className="navbar navbar-expand-sm bg-light navbar-light">
-					<ul className="navbar-nav">
-						<li className="nav-item">
-							<Link className="nav-link navbar-brand" to='/'>Curation Portal</Link>
-						</li>
-						<li className="nav-item">
-							<Link className="nav-link" to='/products'>Products</Link>
-						</li>
-						<li className="nav-item">
-							<Link className="nav-link" to='/tagging'>Tagging</Link>
-						</li>
-						<li className="nav-item">
-							<Link className="nav-link" to='/recommendations'>Recommendations</Link>
-						</li>
-						<li className="nav-item">
-							<Link className="nav-link" to='/trending'>Trending</Link>
-						</li>
-						<li className="nav-item">
-							<Link className="nav-link" to='/boosts'>Boosts</Link>
-						</li>
-					</ul>
-				</nav>
-		);
+
+		const items = [
+			'Curation Portal',
+			'Products',
+			'Tagging',
+			'Recommendations',
+			'Trending',
+			'Boosts'
+		];
+
+		const navItems = items.map((item, idx) => {
+
+      let itemClassName = 'nav-item';
+      let linkClassName = 'nav-link';
+      let path = `/${item}`;
+
+			if (item === this.state.selectTab) {
+				itemClassName = `${itemClassName} active`;
+			}
+
+			if (idx == 0) {
+				linkClassName = `${linkClassName} navbar-brand`;
+        path = `/`;
+			}
+
+			return (
+        <li className={itemClassName}
+          onClick={() => this.onClickAction(item)}
+          key={item}>
+          <Link className={linkClassName} to={path}>{item}</Link>
+        </li>
+      );
+		});
+
+		return (<nav className="navbar navbar-expand-sm navbar-dark bg-dark">
+			<ul className="navbar-nav">
+				{navItems}
+			</ul>
+		</nav>);
 	}
 }
 

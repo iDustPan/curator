@@ -21,7 +21,7 @@ const BannerSlider = ({ images }) => {
 
         let media;
         if (format === 'mp4') {
-            media = <video src={url} autoPlay controls></video>
+            media = <video className='slider-img' src={url} autoPlay controls></video>
         }else{
             media = <img className='slider-img' src={url} alt='thumbnail'/>
         }
